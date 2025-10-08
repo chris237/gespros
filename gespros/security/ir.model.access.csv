@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+projet_admin,projet_admin,model_gespros_project,admin_u,1,1,1,1
+projet_op_admin,projet_op_admin,model_gespros_project,ope_admin,1,1,0,0
+projet_op_user,projet_op_user,model_gespros_project,ope_user,1,0,0,0

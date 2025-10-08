@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gespros_project_list" model="ir.ui.view">
+        <field name="name">gespros.project.list</field>
+        <field name="model">gespros.project</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="num_d"/>
+                <field name="Type_d"/>
+                <field name="client_id"/>
+                <field name="bl"/>
+                <field name="typ"/>
+                <field name="quantite"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="poids"/>
+                <field name="valeur" widget="monetary"
+                options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_gespros_project_form" model="ir.ui.view">
+        <field name="name">gespros.project.form</field>
+        <field name="model">gespros.project</field>
+        <field name="arch" type="xml">
+            <form string="Projet">
+                <header>
+                    <button name="confirm" string="Valider" type="object" groups="gespros.ope_admin"
+                            class="oe_highlight o_expense_submit" invisible="state != 'draft'"/>
+                    <button name="cancel" string="Annuler" groups="gespros.admin_u" type="object" invisible="state == 'done'"/>
+                    <button name="reset_to_draft" string="Brouilllons" groups="gespros.admin_u" type="object" invisible="state != 'draft'"/>
+                    <button name="close" string="Termier" type="object" groups="gespros.ope.admin" invisible="state != 'in_progress'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="num_d"/>
+                        <h1>
+                            <field name="num_d" placeholder="e.g. number 370"/>
+                        </h1>
+                        <field name="Type_d" readdonly = "state != 'draft"/>
+                    </div>
+                    <group>
+                        <group string="Informations Du Client">
+                            <field name="company_id" invisible="1"/>
+                            <field name="client_id" readonly="state != 'draft'"/>  
+                            <field name="pc" readonly="state != 'draft'"/>  
+                            <field name="ref" readonly="state != 'draft'"/>  
+                            <field name="bl" readonly="state != 'draft'"/>   
+                            <field name="typ" readonly="state != 'draft'"/>  
+                        </group>
+                        
+                        <group string="Informations de la Marchandise">
+                            <field name="description" readonly="state != 'draft'"/>  
+                            <field name="quantite" readonly="state != 'draft'"/>  
+                            <field name="poids" readonly="state != 'draft'"/> 
+                            <group string="Infos  Prededouanment">
+                                <field name="date" readonly="state != 'draft'"/>  
+                                <field name="employee_id" readonly="state != 'draft'"/> 
+                            </group>
+                            <group string="Infos DeDouanment">
+                                <field name="date_dedoua" readonly="state != 'draft'"/>  
+                                <field name="dedouanement_id" readonly="state != 'draft'"/> 
+                            </group>
+                            <group string="Transport">
+                                <field name="date_tra" readonly="state != 'draft'"/>  
+                                <field name="transport_id" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Infos Devise">
+                                <field name="datef" readonly="state != 'draft'"/>  
+                                <field name="currency_id"/>
+                                <field name="valeur" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" />  
+                                <field name="state" readonly="1" invisible="1"/>
+                            </group>
+                        </group>
+                    </group>
+                    <group string="LCL Informations" invisible="Type_d!='lcl'">
+                        <group>
+                            <field name="bl_num" readonly="state == 'done'"/>
+                            <field name="shipping_line" readonly="state == 'done'"/>
+                            <field name="vessel" readonly="state == 'done'"/>
+                            <field name="voyage" readonly="state == 'done'"/>
+                        </group>
+                        <group>
+                            
+                            <field name="container" readonly="state == 'done'"/>
+                            <field name="date_prealert" readonly="state == 'done'"/>
+                            <field name="eta" readonly="state == 'done'"/>
+                            <field name="state_cle" readonly="state == 'done'"/>
+                        </group>
+                        <group>
+                            
+                            <field name="comple_cle" readonly="state == 'done'"/>
+                            <field name="ship_trans" readonly="state == 'done'"/>
+                        </group>
+                        <group>
+                            <field name="sortie" readonly="state == 'done'"/>
+                            <field name="storage" readonly="state == 'done'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lignes de Frais">
+                            <field name="line_ids" context="{'default_proj_id': id}" readonly="1"/>
+                            <!-- </field> -->
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter reload_on_follower="True"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_gespros_project_kanban" model="ir.ui.view">
+        <field name="name">gespros.project.kanban</field>
+        <field name="model">gespros.project</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <strong><field name="num_d"/></strong>
+                            <div><field name="client_id"/></div>
+                            <div><field name="state"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_gespros_project_filter" model="ir.ui.view">
+        <field name="name">gespros.project.search</field>
+        <field name="model">gespros.project</field>
+        <field name="type">search</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <search string="Operations">
+                <field name="num_d"/>
+                <field name="client_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter string="Brouillons" 
+                            name="brouilons_filtre"
+                            domain="[('state','=','draft')]" 
+                            help="Projets en brouillon"/>
+                    <filter string="En cours" 
+                            name="inprogress_filtre"
+                            domain="[('state','=','in_progress')]" 
+                            help="Projets en cours"/>
+                    <filter string="Terminée" 
+                            name="close_filtre"
+                            domain="[('state','=','done')]" 
+                            help="Projets terminés"/>
+                    <filter string="Annulée" 
+                            name="cancel_filtre"
+                            domain="[('state','=','cancel')]" 
+                            help="Projets annulés"/>
+                    
+                
+                    <filter name="group_client" string="Client" 
+                            context="{'group_by':'client_id'}"/>
+                    <filter name="group_statut" string="Statut" 
+                            context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_gespros_project" model="ir.actions.act_window">
+        <field name="name">Projets</field>
+        <field name="res_model">gespros.project</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="search_view_id" />
+    </record>
+
+    <menuitem id="menu_gespros_project_action" name="Projets" parent="menu_gespros_project" 
+              action="action_gespros_project" sequence="1"/>
+</odoo>
