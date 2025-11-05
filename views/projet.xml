@@ -139,6 +139,9 @@
             <search string="Operations">
                 <field name="num_d"/>
                 <field name="client_id"/>
+                <filter string="Opérations &amp; LCL" name="type_operations" domain="[('Type_d', 'in', ['operations', 'lcl'])]"/>
+                <filter string="Shipping" name="type_shipping" domain="[('Type_d', '=', 'shipping')]"/>
+                <filter string="Administration" name="type_administration" domain="[('Type_d', '=', 'administration')]"/>
                 <newline/>
                 <group expand="0" string="Group By...">
                     <filter string="Brouillons" 
@@ -168,13 +171,30 @@
         </field>
     </record>
     
-    <record id="action_gespros_project" model="ir.actions.act_window">
-        <field name="name">Projets</field>
+    <record id="action_gespros_project_operations" model="ir.actions.act_window">
+        <field name="name">Gestion des Opérations</field>
         <field name="res_model">gespros.project</field>
         <field name="view_mode">list,form,kanban</field>
-        <field name="search_view_id" />
+        <field name="domain">[('Type_d', 'in', ['operations', 'lcl'])]</field>
+        <field name="context">{'default_Type_d': 'operations'}</field>
+        <field name="search_view_id" ref="view_gespros_project_filter"/>
     </record>
 
-    <menuitem id="menu_gespros_project_action" name="Projets" parent="menu_gespros_project" 
-              action="action_gespros_project" sequence="1"/>
+    <record id="action_gespros_project_shipping" model="ir.actions.act_window">
+        <field name="name">Gestion du Shipping</field>
+        <field name="res_model">gespros.project</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('Type_d', '=', 'shipping')]</field>
+        <field name="context">{'default_Type_d': 'shipping'}</field>
+        <field name="search_view_id" ref="view_gespros_project_filter"/>
+    </record>
+
+    <record id="action_gespros_project_administration" model="ir.actions.act_window">
+        <field name="name">Gestion Administrative</field>
+        <field name="res_model">gespros.project</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="domain">[('Type_d', '=', 'administration')]</field>
+        <field name="context">{'default_Type_d': 'administration'}</field>
+        <field name="search_view_id" ref="view_gespros_project_filter"/>
+    </record>
 </odoo>
