@@ -2,6 +2,15 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import AccessError
 
+# Selection shared between project dossiers and related models
+TYPE_D_SELECTION = [
+    ('operations', 'Operations'),
+    ('lcl', 'LCL'),
+    ('shipping', 'Shipping'),
+    ('administration', 'Administration'),
+]
+
+
 class Projets(models.Model):
     _name = "gespros.project"
     _description = "Projets Operation"
@@ -32,11 +41,13 @@ class Projets(models.Model):
         ('cancel', 'Annule')
     ], string='Status', copy=False, default='draft', tracking=True)
 
-    Type_d = fields.Selection([
-        ('operations', 'Operations'),
-        ('lcl', 'LCL'),
-        ('shipping', 'Shipping')
-    ], string='Type de Dossier', copy=False, default='operations', tracking=True)
+    Type_d = fields.Selection(
+        TYPE_D_SELECTION,
+        string='Type de Dossier',
+        copy=False,
+        default='operations',
+        tracking=True,
+    )
 
 
     line_ids = fields.One2many('hr.expense', 
@@ -142,7 +153,18 @@ class HrExpense(models.Model):
 
     proj_id = fields.Many2one("gespros.project", string='Dossier N', required=True)
 
-    departement_id = fields.Many2one("hr.department", string="Departement")
+    type_d = fields.Selection(
+        TYPE_D_SELECTION,
+        string="Type de Dossier",
+        default='operations',
+        tracking=True,
+    )
+
+    vehicle_id = fields.Many2one(
+        'fleet.vehicle',
+        string="Véhicule",
+        tracking=True,
+    )
 
     product_id = fields.Many2one(
         comodel_name='product.product',
@@ -156,10 +178,15 @@ class HrExpense(models.Model):
 class HrExpenseSheet(models.Model):
     _inherit = "hr.expense.sheet"
 
-    proj_id = fields.Many2one("gespros.project", string='Dossier N', 
+    proj_id = fields.Many2one("gespros.project", string='Dossier N',
                             #   compute = '_proj_c',
                               )
 
-    departement_id = fields.Many2one("hr.department", string="Departement")
+    type_d = fields.Selection(
+        TYPE_D_SELECTION,
+        string="Type de Dossier",
+        default='operations',
+        tracking=True,
+    )
 
     # @api.depends('')

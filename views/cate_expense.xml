@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="hr_expense.product_product_expense_form_view"/>
         <field name="arch" type="xml">
             <field name="description" position="after">
-                <field name="departement_id" string="Departement" placeholder="Ex: Operations"/>
+                <field name="type_d" string="Type de Dossier" placeholder="Ex: Operations"/>
             </field>
         </field>
     </record>
@@ -16,8 +16,9 @@
     <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
     <field name="arch" type="xml">
         <field name="product_uom_category_id" position="after">
-            <field name="departement_id" string="Departement" options="{'no_create': True}"/>
-            <field name="proj_id" options="{'no_create': True}" 
+            <field name="type_d" string="Type de Dossier" options="{'no_create': True}"/>
+            <field name="vehicle_id" options="{'no_create': True}"/>
+            <field name="proj_id" options="{'no_create': True}"
                    string="Projet"
                    domain="[('state','=','in_progress')]" />
         </field>
@@ -31,8 +32,7 @@
     <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
     <field name="arch" type="xml">
         <field name="payment_mode" position="after">
-            <!-- <field name="departement_id" string="Departement" options="{'no_create': True}"/> -->
-            <field name="proj_id" options="{'no_create': True}" 
+            <field name="proj_id" options="{'no_create': True}"
                    string="Projet"
                    domain="[('state','=','in_progress')]" />
         </field>
