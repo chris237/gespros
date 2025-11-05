@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_gespros_root" name="Gestion des Operations" sequence="1"/>
+    <menuitem id="menu_gespros_project" name="Operations" parent="menu_gespros_root" sequence="1"/>
+    
+</odoo>
