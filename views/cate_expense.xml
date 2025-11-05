@@ -17,10 +17,12 @@
     <field name="arch" type="xml">
         <field name="product_uom_category_id" position="after">
             <field name="type_d" string="Type de Dossier" options="{'no_create': True}"/>
-            <field name="vehicle_id" options="{'no_create': True}"/>
+            <field name="vehicle_id"
+                   options="{'no_create': True}"
+                   attrs="{'invisible': [('type_d', '!=', 'operations')]}"/>
             <field name="proj_id" options="{'no_create': True}"
                    string="Projet"
-                   domain="[('state','=','in_progress')]" />
+                   domain="[('state', '=', 'in_progress'), ('Type_d', '=', type_d)]" />
         </field>
     </field>
 </record>
