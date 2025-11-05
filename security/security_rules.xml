@@ -2,8 +2,8 @@
 <odoo>
 <data noupdate="1">
     <record id="admin_u" model="res.groups">
-        <field name="name">Admin</field>
-        <field name="comment">the user will have access to his own data in the module.</field>
+        <field name="name">Admin Général</field>
+        <field name="comment">Utilisateur avec accès complet à tous les dossiers.</field>
     </record>
 
     <record id="ope_admin" model="res.groups">
@@ -14,6 +14,54 @@
     <record id="ope_user" model="res.groups">
         <field name="name">Operation User</field>
         <field name="comment">the user will have access to his own data in the module.</field>
+    </record>
+
+    <record id="ship_admin" model="res.groups">
+        <field name="name">Shipping Admin</field>
+        <field name="comment">the user will have access to the shipping dossiers.</field>
+    </record>
+
+    <record id="ship_user" model="res.groups">
+        <field name="name">Shipping User</field>
+        <field name="comment">the user will have access to the shipping dossiers.</field>
+    </record>
+
+    <record id="admin_admin" model="res.groups">
+        <field name="name">Administration Admin</field>
+        <field name="comment">the user will have access to the administration dossiers.</field>
+    </record>
+
+    <record id="admin_user" model="res.groups">
+        <field name="name">Administration User</field>
+        <field name="comment">the user will have access to the administration dossiers.</field>
+    </record>
+
+    <record id="rule_project_operations" model="ir.rule">
+        <field name="name">Projets - Operations &amp; LCL</field>
+        <field name="model_id" ref="model_gespros_project"/>
+        <field name="domain_force">[('Type_d', 'in', ['operations', 'lcl'])]</field>
+        <field name="groups" eval="[(4, ref('gespros.ope_admin')), (4, ref('gespros.ope_user'))]"/>
+    </record>
+
+    <record id="rule_project_shipping" model="ir.rule">
+        <field name="name">Projets - Shipping</field>
+        <field name="model_id" ref="model_gespros_project"/>
+        <field name="domain_force">[('Type_d', '=', 'shipping')]</field>
+        <field name="groups" eval="[(4, ref('gespros.ship_admin')), (4, ref('gespros.ship_user'))]"/>
+    </record>
+
+    <record id="rule_project_administration" model="ir.rule">
+        <field name="name">Projets - Administration</field>
+        <field name="model_id" ref="model_gespros_project"/>
+        <field name="domain_force">[('Type_d', '=', 'administration')]</field>
+        <field name="groups" eval="[(4, ref('gespros.admin_admin')), (4, ref('gespros.admin_user'))]"/>
+    </record>
+
+    <record id="rule_project_general_admin" model="ir.rule">
+        <field name="name">Projets - Accès général</field>
+        <field name="model_id" ref="model_gespros_project"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('gespros.admin_u'))]"/>
     </record>
 </data>
 

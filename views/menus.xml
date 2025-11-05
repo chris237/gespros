@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="menu_gespros_root" name="Gestion des Operations" sequence="1"/>
-    <menuitem id="menu_gespros_project" name="Operations" parent="menu_gespros_root" sequence="1"/>
-    
+    <menuitem id="menu_gespros_root" name="Gestion des Dossiers" sequence="1" groups="gespros.admin_u,gespros.ope_admin,gespros.ope_user,gespros.ship_admin,gespros.ship_user,gespros.admin_admin,gespros.admin_user"/>
+    <menuitem id="menu_gespros_project_operations" name="Gestion des Opérations" parent="menu_gespros_root" sequence="1" action="action_gespros_project_operations" groups="gespros.admin_u,gespros.ope_admin,gespros.ope_user"/>
+    <menuitem id="menu_gespros_project_shipping" name="Gestion du Shipping" parent="menu_gespros_root" sequence="2" action="action_gespros_project_shipping" groups="gespros.admin_u,gespros.ship_admin,gespros.ship_user"/>
+    <menuitem id="menu_gespros_project_administration" name="Gestion Administrative" parent="menu_gespros_root" sequence="3" action="action_gespros_project_administration" groups="gespros.admin_u,gespros.admin_admin,gespros.admin_user"/>
+
 </odoo>
