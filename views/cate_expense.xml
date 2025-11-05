@@ -19,7 +19,7 @@
             <field name="type_d" string="Type de Dossier" options="{'no_create': True}"/>
             <field name="vehicle_id"
                    options="{'no_create': True}"
-                   invisible="type_d != 'operations'"/>
+                   invisible="type_d != 'administration'"/>
             <field name="proj_id" options="{'no_create': True}"
                    string="Projet"
                    domain="[('state', '=', 'in_progress'), ('Type_d', '=', type_d)]" />

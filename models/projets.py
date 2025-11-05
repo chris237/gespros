@@ -151,7 +151,7 @@ class Projets(models.Model):
 class HrExpense(models.Model):
     _inherit = "hr.expense"
 
-    proj_id = fields.Many2one("gespros.project", string='Dossier N', required=True)
+    proj_id = fields.Many2one("gespros.project", string='Dossier N')
 
     type_d = fields.Selection(
         TYPE_D_SELECTION,
