@@ -26,20 +26,20 @@
         <field name="arch" type="xml">
             <form string="Projet">
                 <header>
-                    <button name="confirm" string="Valider" type="object" groups="gespros.ope_admin"
+                    <button name="confirm" string="Valider" type="object" groups="gespros.ope_admin, gespros.ship_admin, gespros.admin_admin"
                             class="oe_highlight o_expense_submit" invisible="state != 'draft'"/>
-                    <button name="cancel" string="Annuler" groups="gespros.admin_u" type="object" invisible="state == 'done'"/>
-                    <button name="reset_to_draft" string="Brouilllons" groups="gespros.admin_u" type="object" invisible="state != 'draft'"/>
-                    <button name="close" string="Termier" type="object" groups="gespros.ope.admin" invisible="state != 'in_progress'"/>
+                    <button name="cancel" string="Annuler" groups="gespros.ope_admin, gespros.ship_admin, gespros.admin_admin" type="object" invisible="state == 'done'"/>
+                    <button name="reset_to_draft" string="Brouilllons" groups="gespros.admin_u, gespros.ope_admin, gespros.ship_admin, gespros.admin_admin" type="object" invisible="state != 'draft'"/>
+                    <button name="close" string="Termier" type="object" groups="gespros.ope_admin, gespros.ship_admin, gespros.admin_admin" invisible="state != 'in_progress'"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <label for="num_d"/>
                         <h1>
-                            <field name="num_d" placeholder="e.g. number 370"/>
+                            <field name="num_d" placeholder="e.g. number 370 or Month + Years (November 2025)"/>
                         </h1>
-                        <field name="Type_d" readdonly = "state != 'draft"/>
+                        <field name="Type_d" readonly="1"/>
                     </div>
                     <group>
                         <group string="Informations Du Client">

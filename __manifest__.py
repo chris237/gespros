@@ -13,9 +13,9 @@
     'data': [
         'security/security_rules.xml',
         'security/ir.model.access.csv',
-        'views/menus.xml',
         'views/projet.xml',
-        'views/cate_expense.xml'
+        'views/cate_expense.xml',
+        'views/menus.xml',
     ],
     'images': [
         'static/description/brains.png',
