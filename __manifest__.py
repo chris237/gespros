@@ -9,13 +9,15 @@
     """,
     'author': 'Christian Ferdinand fotie201@gmail.com',
     'website': 'https://',
-    'depends': ['base', 'hr_expense','mail', 'fleet'],
+    'depends': ['base', 'hr_expense','mail', 'fleet', 'account'],
     'data': [
         'security/security_rules.xml',
         'security/ir.model.access.csv',
         'views/projet.xml',
         'views/cate_expense.xml',
+        'views/account_move.xml',
         'views/menus.xml',
+        'data/report_url.xml',
     ],
     'images': [
         'static/description/brains.png',
