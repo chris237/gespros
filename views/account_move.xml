@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_move_form_inherit_gespros" model="ir.ui.view">
+        <field name="name">account.move.form.gespros.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                <field name="report_lang" options="{'no_create': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_origin']" position="after">
+                <field name="proj_id" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
